@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import ProgressLink from './ProgressLink';
 import { useSession, signOut } from 'next-auth/react';
 import ThemeToggle from './ThemeToggle';
 import styles from './Navbar.module.css';
@@ -12,28 +12,28 @@ export default function Navbar() {
   return (
     <nav className={styles.nav}>
       <div className={`container ${styles.container}`}>
-        <Link href="/" className={styles.logo}>
+        <ProgressLink href="/" className={styles.logo}>
           Studious
-        </Link>
+        </ProgressLink>
         
         <div className={styles.navRight}>
           {session ? (
             <>
-              <Link href="/study-planner" className={styles.navLink}>
+              <ProgressLink href="/study-planner" className={styles.navLink}>
                 <BookOpen size={18} />
                 <span>Study Planner</span>
-              </Link>
+              </ProgressLink>
               
               {session.user.role === 'ADMIN' && (
-                <Link href="/admin" className={styles.navLink}>
+                <ProgressLink href="/admin" className={styles.navLink}>
                   <Shield size={18} />
                   <span>Admin</span>
-                </Link>
+                </ProgressLink>
               )}
               
-              <button 
-                onClick={() => signOut()} 
-                className={styles.signOutBtn}
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className={`btn btn-ghost ${styles.signOutButton}`}
               >
                 <LogOut size={18} />
                 <span>Sign Out</span>
@@ -41,15 +41,14 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login" className={styles.navLink}>
+              <ProgressLink href="/login" className={`btn btn-ghost ${styles.authButton}`}>
                 <LogIn size={18} />
-                <span>Login</span>
-              </Link>
-              
-              <Link href="/signup" className={styles.signUpBtn}>
+                <span>Sign In</span>
+              </ProgressLink>
+              <ProgressLink href="/signup" className={`btn btn-primary ${styles.authButton}`}>
                 <UserPlus size={18} />
                 <span>Sign Up</span>
-              </Link>
+              </ProgressLink>
             </>
           )}
           

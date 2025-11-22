@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "nprogress/nprogress.css";
 import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
+import NavigationProgress from "@/components/NavigationProgress";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -23,6 +25,7 @@ export default function RootLayout({
     <html lang="en" data-theme="dark">
       <body className={inter.variable}>
         <Providers>
+          <NavigationProgress />
           <Navbar />
           <main className="container" style={{ marginTop: '3rem', paddingBottom: '3rem' }}>
             {children}
