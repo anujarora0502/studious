@@ -2,7 +2,7 @@
 
 import { toggleTask, deleteTask } from "@/lib/actions";
 import { useTransition } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Loader2 } from "lucide-react";
 
 interface TaskProps {
   task: {
@@ -26,7 +26,8 @@ export default function TaskItem({ task }: TaskProps) {
       border: "1px solid transparent",
       backgroundColor: "var(--card)",
       transition: "all 0.2s",
-      boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+      boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+      opacity: isPending ? 0.6 : 1
     }}
     className="group task-enter"
     onMouseEnter={(e) => e.currentTarget.style.borderColor = "var(--border)"}
@@ -41,7 +42,7 @@ export default function TaskItem({ task }: TaskProps) {
           style={{ 
             width: "1.125rem", 
             height: "1.125rem", 
-            cursor: "pointer", 
+            cursor: isPending ? "not-allowed" : "pointer", 
             accentColor: "var(--primary)",
             borderRadius: "4px"
           }}
@@ -62,13 +63,14 @@ export default function TaskItem({ task }: TaskProps) {
         style={{ 
           color: "var(--muted-foreground)", 
           padding: "0.5rem", 
-          height: "auto"
+          height: "auto",
+          cursor: isPending ? "not-allowed" : "pointer"
         }}
         aria-label="Delete task"
-        onMouseEnter={(e) => e.currentTarget.style.color = "var(--destructive)"}
+        onMouseEnter={(e) => !isPending && (e.currentTarget.style.color = "var(--destructive)")}
         onMouseLeave={(e) => e.currentTarget.style.color = "var(--muted-foreground)"}
       >
-        <Trash2 size={16} />
+        {isPending ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
       </button>
     </div>
   );

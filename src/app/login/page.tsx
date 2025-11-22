@@ -3,15 +3,20 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    
     const result = await signIn("credentials", {
       email,
       password,
@@ -20,6 +25,7 @@ export default function LoginPage() {
 
     if (result?.error) {
       setError("Invalid email or password");
+      setIsLoading(false);
     } else {
       router.push("/study-planner");
       router.refresh();
@@ -70,6 +76,7 @@ export default function LoginPage() {
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
               required
             />
           </div>
@@ -82,11 +89,25 @@ export default function LoginPage() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ marginTop: "0.5rem", width: "100%" }}>
-            Sign In
+          <button 
+            type="submit" 
+            className="btn btn-primary" 
+            style={{ 
+              marginTop: "0.5rem", 
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.5rem"
+            }}
+            disabled={isLoading}
+          >
+            {isLoading && <Loader2 size={16} className="animate-spin" style={{ animation: "spin 1s linear infinite" }} />}
+            {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
       </div>

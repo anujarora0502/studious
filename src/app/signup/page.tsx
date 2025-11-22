@@ -2,19 +2,24 @@
 
 import { registerUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(formData: FormData) {
-    const result = await registerUser(formData);
-    if (result.error) {
-      setError(result.error);
-    } else {
-      router.push("/login");
-    }
+    startTransition(async () => {
+      setError(null);
+      const result = await registerUser(formData);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        router.push("/login");
+      }
+    });
   }
 
   return (
@@ -54,18 +59,31 @@ export default function SignupPage() {
         <form action={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div>
             <label htmlFor="name" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.875rem", fontWeight: 500 }}>Name</label>
-            <input type="text" name="name" id="name" className="input" placeholder="John Doe" required />
+            <input type="text" name="name" id="name" className="input" placeholder="John Doe" disabled={isPending} required />
           </div>
           <div>
             <label htmlFor="email" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.875rem", fontWeight: 500 }}>Email</label>
-            <input type="email" name="email" id="email" className="input" placeholder="name@example.com" required />
+            <input type="email" name="email" id="email" className="input" placeholder="name@example.com" disabled={isPending} required />
           </div>
           <div>
             <label htmlFor="password" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.875rem", fontWeight: 500 }}>Password</label>
-            <input type="password" name="password" id="password" className="input" placeholder="••••••••" required />
+            <input type="password" name="password" id="password" className="input" placeholder="••••••••" disabled={isPending} required />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ marginTop: "0.5rem", width: "100%" }}>
-            Sign Up
+          <button 
+            type="submit" 
+            className="btn btn-primary" 
+            style={{ 
+              marginTop: "0.5rem", 
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.5rem"
+            }}
+            disabled={isPending}
+          >
+            {isPending && <Loader2 size={16} className="animate-spin" style={{ animation: "spin 1s linear infinite" }} />}
+            {isPending ? "Creating account..." : "Sign Up"}
           </button>
         </form>
       </div>
