@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getTasks, addTask } from "@/lib/actions";
 import TaskItem from "@/components/TaskItem";
+import AddTaskForm from "@/components/AddTaskForm";
 import Link from "next/link";
 import { History } from "lucide-react";
 import styles from "./dashboard.module.css";
@@ -53,28 +54,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
       
-      <div className={styles.formWrapper}>
-        <form action={addTaskWithId} className={styles.form}>
-          <input
-            type="text"
-            name="title"
-            placeholder="What needs to be done?"
-            className={`input ${styles.input}`}
-            style={{ 
-              backgroundColor: "var(--card)",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
-            }}
-            required
-            autoComplete="off"
-          />
-          <button 
-            type="submit" 
-            className={`btn btn-primary ${styles.submitButton}`}
-          >
-            Add Task
-          </button>
-        </form>
-      </div>
+      <AddTaskForm addTaskAction={addTaskWithId} />
 
       <div className="animate-fade-in">
         <h2 style={{ 
