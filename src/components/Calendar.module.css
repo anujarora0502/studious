@@ -1,0 +1,184 @@
+.calendar {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0 0.25rem;
+}
+
+.monthYear {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navButton:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  padding: 0.125rem;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.emptyDay {
+  aspect-ratio: 1;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--foreground);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  padding: 0.125rem;
+  min-height: 40px;
+}
+
+.day:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.day:not(:disabled):hover {
+  background-color: var(--accent);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hasTask {
+  background-color: var(--secondary);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+.today {
+  border: 2px solid var(--primary);
+  font-weight: 700;
+}
+
+.dayNumber {
+  font-size: 0.8125rem;
+}
+
+.taskBadge {
+  position: absolute;
+  top: 0.0625rem;
+  right: 0.0625rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.5rem;
+  font-weight: 700;
+  padding: 0.0625rem 0.1875rem;
+  border-radius: 0.375rem;
+  min-width: 0.875rem;
+  text-align: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .monthYear {
+    font-size: 1.25rem;
+  }
+
+  .navButton {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .weekday {
+    font-size: 0.75rem;
+    padding: 0.375rem;
+  }
+
+  .days {
+    gap: 0.375rem;
+  }
+
+  .day {
+    padding: 0.375rem;
+    font-size: 0.8125rem;
+  }
+
+  .dayNumber {
+    font-size: 0.875rem;
+  }
+
+  .taskBadge {
+    font-size: 0.5625rem;
+    padding: 0.0625rem 0.25rem;
+    min-width: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .monthYear {
+    font-size: 1.125rem;
+  }
+
+  .weekday {
+    font-size: 0.625rem;
+  }
+
+  .days {
+    gap: 0.25rem;
+  }
+
+  .day {
+    padding: 0.25rem;
+  }
+
+  .dayNumber {
+    font-size: 0.75rem;
+  }
+}
