@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react';
 import { Loader2, Plus } from 'lucide-react';
-import styles from './dashboard.module.css';
+import styles from "../app/study-planner/dashboard.module.css";
 
 interface AddTaskFormProps {
   addTaskAction: (formData: FormData) => Promise<void>;
