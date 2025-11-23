@@ -5,6 +5,7 @@ import "nprogress/nprogress.css";
 import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import NavigationProgress from "@/components/NavigationProgress";
+import { Suspense } from "react";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -25,7 +26,9 @@ export default function RootLayout({
     <html lang="en" data-theme="dark">
       <body className={inter.variable}>
         <Providers>
-          <NavigationProgress />
+          <Suspense fallback={null}>
+            <NavigationProgress />
+          </Suspense>
           <Navbar />
           <main className="container" style={{ marginTop: '3rem', paddingBottom: '3rem' }}>
             {children}
