@@ -1,16 +1,28 @@
 'use client';
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (session) {
+      if (session.user.role === "ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/study-planner");
+      }
+    }
+  }, [session, router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +39,7 @@ export default function LoginPage() {
       setError("Invalid email or password");
       setIsLoading(false);
     } else {
-      router.push("/study-planner");
+      // Session will be updated, useEffect will handle redirect
       router.refresh();
     }
   }
