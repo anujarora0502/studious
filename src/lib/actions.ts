@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
+import { getTodayIST } from "@/lib/timezone";
 
 export async function registerUser(formData: FormData) {
   const name = formData.get("name") as string;
@@ -41,7 +42,7 @@ export async function registerUser(formData: FormData) {
 }
 
 export async function getTasks(userId: string) {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getTodayIST();
 
   // Rollover logic: Find incomplete tasks from before today and update them to today
   await prisma.task.updateMany({
@@ -72,7 +73,7 @@ export async function getTasks(userId: string) {
 
 export async function addTask(userId: string, formData: FormData) {
   const title = formData.get("title") as string;
-  const date = new Date().toISOString().split("T")[0]; // Default to today
+  const date = getTodayIST(); // Default to today (IST)
 
   if (!title) return;
 
@@ -120,7 +121,7 @@ export async function getAllUsersWithTasks() {
 }
 
 export async function getCompletedTasks(userId: string) {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getTodayIST();
 
   return await prisma.task.findMany({
     where: {

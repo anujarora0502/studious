@@ -19,10 +19,12 @@ export default function Navbar() {
         <div className={styles.navRight}>
           {session ? (
             <>
-              <ProgressLink href="/study-planner" className={styles.navLink}>
-                <BookOpen size={18} />
-                <span>Study Planner</span>
-              </ProgressLink>
+              {session.user.role !== 'ADMIN' && (
+                <ProgressLink href="/study-planner" className={styles.navLink}>
+                  <BookOpen size={18} />
+                  <span>Study Planner</span>
+                </ProgressLink>
+              )}
               
               {session.user.role === 'ADMIN' && (
                 <ProgressLink href="/admin" className={styles.navLink}>

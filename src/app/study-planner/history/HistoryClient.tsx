@@ -40,18 +40,17 @@ export default function HistoryClient({ tasks }: { tasks: any[] }) {
       <ProgressLink
         href="/study-planner"
         style={{
-          display: 'flex',
+          display: 'inline-flex',
           alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
+          justifyContent: 'center',
+          width: '2.5rem',
+          height: '2.5rem',
           marginBottom: '1rem',
           background: 'transparent',
           border: '1px solid var(--border)',
           borderRadius: '0.5rem',
           color: 'var(--foreground)',
           cursor: 'pointer',
-          fontSize: '0.875rem',
-          fontWeight: 500,
           transition: 'all 0.2s',
           textDecoration: 'none'
         }}
@@ -62,8 +61,7 @@ export default function HistoryClient({ tasks }: { tasks: any[] }) {
           e.currentTarget.style.backgroundColor = 'transparent';
         }}
       >
-        <ArrowLeft size={16} />
-        <span>Back to Study Planner</span>
+        <ArrowLeft size={18} />
       </ProgressLink>
 
       <Calendar tasksData={tasksData} onDateClick={handleDateClick} />

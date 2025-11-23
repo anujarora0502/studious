@@ -113,6 +113,7 @@ h3 { font-size: 1.25rem; line-height: 1.75rem; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.3rem;
   border-radius: var(--radius);
   font-size: 0.875rem;
   font-weight: 500;
@@ -314,3 +315,30 @@ h3 { font-size: 1.25rem; line-height: 1.75rem; }
   transform: rotate(3deg) translate(0px, -4px);
 }
 
+/* Status Dot Tooltip */
+.status-dot {
+  position: relative;
+}
+
+.status-dot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.status-dot:hover::after {
+  opacity: 1;
+}

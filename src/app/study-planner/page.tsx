@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getTasks, addTask } from "@/lib/actions";
 import TaskItem from "@/components/TaskItem";
 import AddTaskForm from "@/components/AddTaskForm";
-import Link from "next/link";
+import ProgressLink from "@/components/ProgressLink";
 import { History } from "lucide-react";
 import styles from "./dashboard.module.css";
 
@@ -36,7 +36,7 @@ export default async function DashboardPage() {
             You have {tasks.filter((t: any) => !t.isCompleted).length} tasks remaining for today
           </p>
         </div>
-        <Link 
+        <ProgressLink 
           href="/study-planner/history" 
           className="btn btn-ghost" 
           style={{ 
@@ -46,12 +46,13 @@ export default async function DashboardPage() {
             color: "var(--muted-foreground)",
             border: "1px solid var(--border)",
             borderRadius: "2rem",
-            padding: "0.5rem 1rem"
+            padding: "0.5rem 1rem",
+            textDecoration: "none"
           }}
         >
           <History size={16} />
           <span>History</span>
-        </Link>
+        </ProgressLink>
       </div>
       
       <AddTaskForm addTaskAction={addTaskWithId} />
