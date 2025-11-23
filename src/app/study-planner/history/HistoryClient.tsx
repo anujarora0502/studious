@@ -1,15 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import ProgressLink from '@/components/ProgressLink';
 import Calendar from '@/components/Calendar';
 import TaskModal from '@/components/TaskModal';
 
 export default function HistoryClient({ tasks }: { tasks: any[] }) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
 
   // Group tasks by date and count them
   const tasksData: Record<string, number> = {};
@@ -38,8 +37,8 @@ export default function HistoryClient({ tasks }: { tasks: any[] }) {
 
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }}>
-      <button
-        onClick={() => router.push('/study-planner')}
+      <ProgressLink
+        href="/study-planner"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -53,18 +52,19 @@ export default function HistoryClient({ tasks }: { tasks: any[] }) {
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: 500,
-          transition: 'all 0.2s'
+          transition: 'all 0.2s',
+          textDecoration: 'none'
         }}
-        onMouseEnter={(e) => {
+        onMouseEnter={(e: any) => {
           e.currentTarget.style.backgroundColor = 'var(--accent)';
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={(e: any) => {
           e.currentTarget.style.backgroundColor = 'transparent';
         }}
       >
         <ArrowLeft size={16} />
         <span>Back to Study Planner</span>
-      </button>
+      </ProgressLink>
 
       <Calendar tasksData={tasksData} onDateClick={handleDateClick} />
 
