@@ -105,6 +105,15 @@ export async function deleteTask(taskId: string) {
   revalidatePath("/study-planner");
 }
 
+export async function updateTask(taskId: string, title: string) {
+  await prisma.task.update({
+    where: { id: taskId },
+    data: { title },
+  });
+
+  revalidatePath("/study-planner");
+}
+
 export async function getAllUsersWithTasks() {
   return await prisma.user.findMany({
     where: {
