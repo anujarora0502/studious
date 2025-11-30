@@ -21,7 +21,8 @@ export default function Linkify({ text, className }: LinkifyProps) {
               href={part}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              style={{ color: '#9CAF88', textDecoration: 'underline' }}
+              className="hover:opacity-80 font-medium"
               onClick={(e) => e.stopPropagation()}
             >
               {part}
