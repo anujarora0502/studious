@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { X, CheckCircle2 } from 'lucide-react';
 import styles from './TaskModal.module.css';
+import Linkify from './Linkify';
 
 interface Task {
   id: string;
@@ -65,7 +66,7 @@ export default function TaskModal({ isOpen, onClose, date, tasks }: TaskModalPro
               {tasks.map((task) => (
                 <li key={task.id} className={styles.taskItem}>
                   <CheckCircle2 size={20} className={styles.checkIcon} />
-                  <span className={styles.taskTitle}>{task.title}</span>
+                  <Linkify text={task.title} className={styles.taskTitle} />
                 </li>
               ))}
             </ul>

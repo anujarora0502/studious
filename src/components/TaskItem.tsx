@@ -3,6 +3,7 @@
 import { toggleTask, deleteTask } from "@/lib/actions";
 import { useTransition } from "react";
 import { Trash2, Loader2 } from "lucide-react";
+import Linkify from "./Linkify";
 
 interface TaskProps {
   task: {
@@ -53,7 +54,10 @@ export default function TaskItem({ task }: TaskProps) {
           transition: "color 0.2s",
           fontSize: "0.9375rem"
         }}>
-          {task.title}
+        <Linkify 
+          text={task.title}
+          className="task-title"
+        />
         </span>
       </div>
       <button
