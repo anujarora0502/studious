@@ -60,13 +60,15 @@ export default async function AdminPage() {
                     <h2 style={{ 
                       fontSize: "1.25rem", 
                       fontWeight: 600,
-                      marginBottom: "0.25rem"
+                      marginBottom: "0.25rem",
+                      wordBreak: "break-word"
                     }}>
                       {user.name}
                     </h2>
                     <p style={{ 
                       fontSize: "0.875rem", 
-                      color: "var(--muted-foreground)" 
+                      color: "var(--muted-foreground)",
+                      wordBreak: "break-word"
                     }}>
                       {user.email}
                     </p>
@@ -113,7 +115,7 @@ export default async function AdminPage() {
                           transition: "all 0.2s"
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flex: 1 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flex: 1, minWidth: 0 }}>
                           <div 
                             className="status-dot"
                             data-tooltip={task.isCompleted ? "Done" : "Pending"}
@@ -129,7 +131,8 @@ export default async function AdminPage() {
                           <span style={{ 
                             textDecoration: task.isCompleted ? "line-through" : "none",
                             color: task.isCompleted ? "var(--muted-foreground)" : "var(--foreground)",
-                            fontSize: "0.9375rem"
+                            fontSize: "0.9375rem",
+                            wordBreak: "break-word"
                           }}>
                             {task.title}
                           </span>
