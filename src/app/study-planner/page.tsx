@@ -33,7 +33,7 @@ export default async function DashboardPage() {
             Hi, {session.user.name}
           </h1>
           <p style={{ color: "var(--muted-foreground)" }}>
-            You have {tasks.filter((t: any) => !t.isCompleted).length} tasks remaining for today
+            You have completed {tasks.filter((t: any) => t.isCompleted).length} out of {tasks.length} tasks today
           </p>
         </div>
         <ProgressLink 
